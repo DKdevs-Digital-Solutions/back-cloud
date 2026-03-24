@@ -4,7 +4,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import { v4 as uuidv4 } from 'uuid'
 
 const app = Fastify({ logger: true })
-
+const port = process.env.PORT || 3000
 const s3 = new S3Client({
   region: 'auto',
   endpoint: process.env.R2_ENDPOINT,
@@ -50,4 +50,4 @@ app.post('/upload-from-url', async (req, reply) => {
   }
 })
 
-app.listen({ port: env.PORT, host: '0.0.0.0' })
+app.listen({ port, host: '0.0.0.0' })
