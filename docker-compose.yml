@@ -5,7 +5,7 @@ services:
     build: .
     container_name: r2-uploader
     ports:
-      - "3000:3000"
+      - "3008:3008"
     environment:
       R2_ENDPOINT: https://70a41e8a2dd0ed2395771e2a48c2a83a.r2.cloudflarestorage.com
       R2_ACCESS_KEY: c5114fb4b0fecd5a5f9469a2fec7bda2
