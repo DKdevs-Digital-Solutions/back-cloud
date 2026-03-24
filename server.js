@@ -50,4 +50,4 @@ app.post('/upload-from-url', async (req, reply) => {
   }
 })
 
-app.listen({ port: 3000, host: '0.0.0.0' })
+app.listen({ port: env.PORT, host: '0.0.0.0' })
