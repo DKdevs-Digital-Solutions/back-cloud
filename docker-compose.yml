@@ -12,6 +12,7 @@ services:
       R2_SECRET_KEY: 3a0d894cf904dd9bf8d89c21a05a9cd2ff66b67fb8ee711612e9a80409ed084d
       R2_BUCKET: eaf
       PUBLIC_URL: https://pub-c54ecb6f6021463e95790b49774c4e8c.r2.dev
+      PORT: 3008
     networks:
       - proxy_public
     restart: unless-stopped
