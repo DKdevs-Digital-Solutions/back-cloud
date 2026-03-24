@@ -2,9 +2,10 @@ import Fastify from 'fastify'
 import fetch from 'node-fetch'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import { v4 as uuidv4 } from 'uuid'
+import mime from 'mime-types'
 
 const app = Fastify({ logger: true })
-const port = process.env.PORT || 3000
+
 const s3 = new S3Client({
   region: 'auto',
   endpoint: process.env.R2_ENDPOINT,
@@ -31,7 +32,14 @@ app.post('/upload-from-url', async (req, reply) => {
     const contentType = response.headers.get('content-type') || 'application/octet-stream'
     const buffer = Buffer.from(await response.arrayBuffer())
 
-    const fileKey = `${uuidv4()}`
+    let ext = mime.extension(contentType)
+
+    if (!ext) {
+      const urlExt = blobUrl.split('.').pop().split('?')[0]
+      ext = urlExt || 'bin'
+    }
+
+    const fileKey = `${uuidv4()}.${ext}`
 
     await s3.send(new PutObjectCommand({
       Bucket: process.env.R2_BUCKET,
@@ -50,4 +58,5 @@ app.post('/upload-from-url', async (req, reply) => {
   }
 })
 
+const port = process.env.PORT || 3000
 app.listen({ port, host: '0.0.0.0' })
